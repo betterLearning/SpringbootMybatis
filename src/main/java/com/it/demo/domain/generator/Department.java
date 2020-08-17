@@ -2,6 +2,9 @@ package com.it.demo.domain.generator;
 
 import java.io.Serializable;
 
+/**
+ * @author gzh
+ */
 public class Department implements Serializable {
     private Integer id;
 
