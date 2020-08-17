@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- context 运行上下文 -->
+    <!-- id 必唯一 -->
+    <!-- defaultModelType:可选;flat:所有内容（主键，blob）等全部生成在一个对象中 -->
+    <!-- targetRuntime:可选 ;建议:MyBatis3Simple/MyBatis3 -->
+    <context id="MySqlTables" defaultModelType="flat"
+             targetRuntime="MyBatis3">
+
+        <!--beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号 -->
+        <!--如ORACLE就是双引号；MYSQL默认是`反引号； -->
+        <property name="beginningDelimiter" value="`" />
+        <property name="endingDelimiter" value="`" />
+
+        <!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+        <property name="javaFileEncoding" value="UTF-8" />
+
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter"
+                  value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter"
+                  value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+
+        <!--自动实现Serializable接口 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+        <!--去除生成的注释;建议初次不去注释 -->
+        <commentGenerator>
+            <!-- 去除自动生成时的时间戳 -->
+            <property name="suppressDate" value="true" />
+            <!-- 去除自动生成的注释 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!--数据库基本信息 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT" userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!-- java类型处理器 用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl； -->
+        <!-- 注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型； -->
+        <javaTypeResolver
+                type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <!-- true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型 -->
+            <!--false：默认, -->
+            <!--scale>0;length>18：使用BigDecimal -->
+            <!--scale=0;length[10,18]：使用Long -->
+            <!--scale=0;length[5,9]：使用Integer -->
+            <!--scale=0;length<5：使用Short -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--Java model(POJO)生成的位置 -->
+        <!--targetPackage:包路径 -->
+        <!--targetProject:项目路径 -->
+        <javaModelGenerator targetPackage="com.it.demo.domain.generator"
+                            targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="true" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--*Mapper.xml生成的位置 -->
+        <sqlMapGenerator targetPackage="mapper.generator"
+                         targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口 -->
+        <!--type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下） -->
+        <!--1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML -->
+        <!--2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中 -->
+        <!--3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML -->
+        <!--注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.it.demo.dao.generator" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--表的名称;对应类的名称; -->
+        <table tableName="tbl_employee" domainObjectName="Employee"></table>
+        <table tableName="tbl_empt" domainObjectName="Department"></table>
+
+    </context>
+</generatorConfiguration>
