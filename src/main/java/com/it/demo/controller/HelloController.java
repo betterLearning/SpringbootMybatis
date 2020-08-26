@@ -16,7 +16,7 @@ public class HelloController {
         return "hell world";
     }
 
-    @RequestMapping(value = "empt")
+    @RequestMapping(value = "/empt")
     public Object getAllEmpt(){
         return service.getAll();
     }
