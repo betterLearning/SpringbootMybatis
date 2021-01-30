@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface EmptDao {
     List<Empt> getAll();
+
+    Empt selectByPrimaryKey(Integer id);
 }

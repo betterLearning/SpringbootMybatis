@@ -6,4 +6,8 @@
         SELECT * from tbl_empt
     </select>
 
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.it.demo.domain.Empt">
+        SELECT * FROM tbl_empt WHERE id = #{id}
+    </select>
+
     </mapper>

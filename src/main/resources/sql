@@ -1,0 +1,8 @@
+Drop TABLE IF EXISTS `tbl_user`;
+
+create TABLE `tbl_user`(
+	`id` INT(16) PRIMARY KEY AUTO_INCREMENT,
+	`name` VARCHAR(32),
+	`create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`update_time` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

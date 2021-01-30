@@ -2,6 +2,7 @@ package com.it.demo.service.impl;
 
 import com.it.demo.dao.EmptDao;
 import com.it.demo.domain.Empt;
+import com.it.demo.dto.QuerySingleEmptParam;
 import com.it.demo.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,10 @@ public class HelloServiceImpl implements HelloService {
     @Override
     public List<Empt> getAll() {
         return allEmpt;
+    }
+
+    @Override
+    public Empt getSingleEmpt(QuerySingleEmptParam param) {
+        return emptDao.selectByPrimaryKey(param.getId());
     }
 }
